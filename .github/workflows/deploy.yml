@@ -1,0 +1,23 @@
+name: Deploy multiple sites
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy coinflip
+        run: |
+          cd site1
+          echo site1.ваш_домен > CNAME
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m 'Deploy site1'
+          git push origin main:gh-pages
